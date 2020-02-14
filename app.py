@@ -19,8 +19,8 @@ env = environ.Env(
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('YOUR_CHANNEL_ACCESS_TOKEN')
-handler = WebhookHandler('YOUR_CHANNEL_SECRET')
+line_bot_api = LineBotApi(env('CHANNEL_ACCESS_TOKEN'))
+handler = WebhookHandler(env('CHANNEL_SECRET'))
 
 
 @app.route("/webhook", methods=['POST'])
