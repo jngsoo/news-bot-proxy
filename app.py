@@ -27,9 +27,7 @@ handler = WebhookHandler(env('CHANNEL_SECRET'))
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
-    client = request.headers['X-Line-Request-Id']
-    line_bot_api.push_message(client, TextSendMessage(text='Hello World!'))
-
+    
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
