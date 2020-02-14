@@ -27,6 +27,8 @@ handler = WebhookHandler(env('CHANNEL_SECRET'))
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
+    client = request.headers['X-Line-Request-Id']
+    line_bot_api.push_message(client, TextSendMessage(text='Hello World!'))
 
     # get request body as text
     body = request.get_data(as_text=True)
@@ -43,7 +45,7 @@ def callback():
 
 @app.route("/", methods=['GET'])
 def index():
-    return 'OK'
+    return str(len(env('CHANNEL_ACCESS_TOKEN')))
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -54,4 +56,4 @@ def handle_message(event):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port='443')
